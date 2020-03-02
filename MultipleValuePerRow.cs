@@ -2,6 +2,7 @@
 using Microsoft.Azure.Cosmos.Table;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,6 @@ namespace AzureTableStorage
 
         int nrOfSampSec = 100;
         int scanrateSec = 1;
-        int nrOfSampPerBatch;
 
         List<List<Point>> genBatches = new List<List<Point>>();
         
@@ -27,20 +27,35 @@ namespace AzureTableStorage
             storageAccount = CloudStorageAccount.Parse(connstr);
             cloudTableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
 
-            var res = simNanoPackagesFromIOTAPI(1);
+
+            generateTestData();
+
+
+
+
+
         }
 
-        public async Task<List<List<Point>>> simNanoPackagesFromIOTAPI(int months)
+        private void generateTestData()
+        {
+            // Check if the test tabels exist:
+
+            // Tabel point_0_201912, point_1_201912 etc and point_0_202001, point_1_202001 etc
+            var res = simNanoPackagesFromIOTAPI(1);
+
+        }
+
+        private async Task<List<List<Point>>> simNanoPackagesFromIOTAPI(int days)
         {
 
             // Generate a list of pushed blocks from nano
             // 1 block ever 1000ms holding total set of points 
             // over a month period.
-            var dateUtc = new DateTime(2020, 01, 01, 0, 0, 0, DateTimeKind.Utc);
+            var dateUtc = new DateTime(2019, 12, 29, 0, 0, 0, DateTimeKind.Utc);
             var unixDateTimeMs = new DateTimeOffset(dateUtc).ToUnixTimeMilliseconds();
 
-            int packagesPerMonth = ((60*scanrateSec) * 60 * 24 * 30);
-            int packagesToGenerate = packagesPerMonth * months;
+            int packagesPerDay = ((60*scanrateSec) * 60 * 24);
+            int packagesToGenerate = packagesPerDay * days;
 
             List<List<Point>> result = new List<List<Point>>();
 
@@ -48,24 +63,27 @@ namespace AzureTableStorage
 
             List<Point> package;
             Point p;
-            for (int c = 0; c < packagesToGenerate; c++)
+
+            var stream = new MemoryStream();
+            var binaryWriter = new BinaryWriter(stream);
+            Stopwatch stw = new Stopwatch();
+            stw.Start();
+            for (int packagesI = 0; packagesI < packagesToGenerate; packagesI++)
             {
                 package = new List<Point>();
                 long value = unixDateTimeMs;
 
-                var stream = new MemoryStream();
-                var binaryWriter = new BinaryWriter(stream);
 
-                for (int pi = 0; pi < nrOfSampSec; c++)
+                for (int ponitI = 0; ponitI < nrOfSampSec; ponitI++)
                 {
                     binaryWriter.BaseStream.Position = 0;
                     binaryWriter.Write((long)value);
 
-                    byte[] buffer  = new byte[(int)binaryWriter.BaseStream.Position];
+                    byte[] buffer = new byte[(int)binaryWriter.BaseStream.Position];
 
-                    Buffer.BlockCopy((binaryWriter.BaseStream as MemoryStream).ToArray(), 0, buffer,0,(int)binaryWriter.BaseStream.Position);
+                    Buffer.BlockCopy((binaryWriter.BaseStream as MemoryStream).ToArray(), 0, buffer, 0, (int)binaryWriter.BaseStream.Position);
 
-                    p = new Point() { Id = pi, State = 0, Type = 0, TimeStampUnixUTC = value, Value = buffer };
+                    p = new Point() { Id = ponitI, State = 0, Type = 0, TimeStampUnixUTC = value , Value = buffer};
 
                     package.Add(p);
                     value += 1000;
@@ -74,7 +92,7 @@ namespace AzureTableStorage
                 result.Add(package);
                 
             }
-
+            Console.WriteLine(stw.ElapsedMilliseconds + " ms Samps " + (packagesToGenerate * nrOfSampSec) + "/samp " + (stw.ElapsedMilliseconds / (packagesToGenerate * nrOfSampSec)) + " ms/samp");
             return result;
         }
         private List<AzurePoint> generateNanoPackage()

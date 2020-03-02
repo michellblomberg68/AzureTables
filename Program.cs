@@ -13,12 +13,18 @@ namespace AzureTableStorage
 
             Console.WriteLine("Azure TableStorage Test");
 
+            // TEST: Run 
+            MultipleValuePerRow multipleValuePerRow = new MultipleValuePerRow();
+
+
             Console.WriteLine("Select i: insert, q: query");
             var k = Console.ReadKey();
 
-            if (k.Key == ConsoleKey.I)
+
+
+            if (k.KeyChar == 'i')
             {
-                MultipleValuePerRow multipleValuePerRow = new MultipleValuePerRow();
+                //MultipleValuePerRow multipleValuePerRow = new MultipleValuePerRow();
 
 
                 //Console.WriteLine("Insert as fast as possible 1 samp / row Partion = pointID");

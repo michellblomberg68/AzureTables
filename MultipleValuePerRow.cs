@@ -16,8 +16,7 @@ namespace AzureTableStorage
         CloudTableClient cloudTableClient;
 
 
-        int nrOfSampSec = 100;
-        int scanrateSec = 1;
+
 
         List<List<Point>> genBatches = new List<List<Point>>();
         
@@ -38,11 +37,62 @@ namespace AzureTableStorage
 
         private void generateTestData()
         {
+            int nrOfSampSec = 1;
+            int scanrateMs = 1000;
+
             // Check if the test tabels exist:
+            if (!tabelsExist())
+            {
+                // Start of prep period, 
+                var startDateUtc = new DateTime(2020, 02, 28, 0, 0, 0, DateTimeKind.Utc);
+                var startUnixDateTimeMs = new DateTimeOffset(startDateUtc).ToUnixTimeMilliseconds();
+                var endDateUtc = new DateTime(2020, 03, 03, 0, 0, 0, DateTimeKind.Utc);
+                var endUnixDateTimeMs = new DateTimeOffset(endDateUtc).ToUnixTimeMilliseconds();
 
-            // Tabel point_0_201912, point_1_201912 etc and point_0_202001, point_1_202001 etc
-            var res = simNanoPackagesFromIOTAPI(1);
+                var countMs = startUnixDateTimeMs;
+                while (countMs < endUnixDateTimeMs)
+                {
+                    // One block from Nano
+                    var block = generateBlock(nrOfSampSec,countMs, , scanrateMs);
+                    countMs += scanrateMs;
 
+
+
+
+
+
+
+
+                }
+
+            }
+        }
+
+        private async Task<List<Point>> generateBlock(int nrOfSampSec,long blockStartMs)
+        {
+            var block = new List<Point>();
+            Point point;
+
+            long value = blockStartMs;
+
+            var stream = new MemoryStream();
+            var binaryWriter = new BinaryWriter(stream);
+
+            for (int pointI = 0; pointI < nrOfSampSec; pointI++)
+            {
+                binaryWriter.BaseStream.Position = 0;
+                binaryWriter.Write((long)value);
+
+                byte[] buffer = new byte[(int)binaryWriter.BaseStream.Position];
+
+                Buffer.BlockCopy((binaryWriter.BaseStream as MemoryStream).ToArray(), 0, buffer, 0, (int)binaryWriter.BaseStream.Position);
+
+                point = new Point() { Id = pointI, State = 0, Type = 0, TimeStampUnixUTC = value, Value = buffer };
+
+                block.Add(point);
+            }
+
+            return block;
         }
 
         private async Task<List<List<Point>>> simNanoPackagesFromIOTAPI(int days)
@@ -58,9 +108,6 @@ namespace AzureTableStorage
             int packagesToGenerate = packagesPerDay * days;
 
             List<List<Point>> result = new List<List<Point>>();
-
-
-
             List<Point> package;
             Point p;
 

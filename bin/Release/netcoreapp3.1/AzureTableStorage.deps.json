@@ -19,12 +19,6 @@
       "Google.Protobuf/3.11.4": {
         "dependencies": {
           "System.Memory": "4.5.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Google.Protobuf.dll": {
-            "assemblyVersion": "3.11.4.0",
-            "fileVersion": "3.11.4.0"
-          }
         }
       },
       "Microsoft.Azure.Cosmos.Table/1.0.6": {
@@ -32,12 +26,6 @@
           "Microsoft.Azure.DocumentDB.Core": "2.1.3",
           "Microsoft.OData.Core": "7.5.0",
           "Newtonsoft.Json": "10.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Azure.Cosmos.Table.dll": {
-            "assemblyVersion": "1.0.6.0",
-            "fileVersion": "1.0.6.0"
-          }
         }
       },
       "Microsoft.Azure.DocumentDB.Core/2.1.3": {
@@ -56,24 +44,6 @@
           "System.Net.WebHeaderCollection": "4.0.1",
           "System.Runtime.Serialization.Primitives": "4.3.0",
           "System.Security.SecureString": "4.0.0"
-        },
-        "runtime": {
-          "lib/netstandard1.6/Microsoft.Azure.DocumentDB.Core.dll": {
-            "assemblyVersion": "2.1.3.0",
-            "fileVersion": "2.1.3.0"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win7-x64/native/DocumentDB.Spatial.Sql.dll": {
-            "rid": "win7-x64",
-            "assetType": "native",
-            "fileVersion": "2.1.0.0"
-          },
-          "runtimes/win7-x64/native/Microsoft.Azure.Documents.ServiceInterop.dll": {
-            "rid": "win7-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          }
         }
       },
       "Microsoft.CSharp/4.3.0": {
@@ -102,30 +72,10 @@
         "dependencies": {
           "Microsoft.OData.Edm": "7.5.0",
           "Microsoft.Spatial": "7.5.0"
-        },
-        "runtime": {
-          "lib/netstandard1.1/Microsoft.OData.Core.dll": {
-            "assemblyVersion": "7.5.0.20627",
-            "fileVersion": "7.5.0.20627"
-          }
         }
       },
-      "Microsoft.OData.Edm/7.5.0": {
-        "runtime": {
-          "lib/netstandard1.1/Microsoft.OData.Edm.dll": {
-            "assemblyVersion": "7.5.0.20627",
-            "fileVersion": "7.5.0.20627"
-          }
-        }
-      },
-      "Microsoft.Spatial/7.5.0": {
-        "runtime": {
-          "lib/netstandard1.1/Microsoft.Spatial.dll": {
-            "assemblyVersion": "7.5.0.20627",
-            "fileVersion": "7.5.0.20627"
-          }
-        }
-      },
+      "Microsoft.OData.Edm/7.5.0": {},
+      "Microsoft.Spatial/7.5.0": {},
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.1.0",
@@ -189,23 +139,11 @@
           "System.Runtime.Serialization.Formatters": "4.3.0",
           "System.Runtime.Serialization.Primitives": "4.3.0",
           "System.Xml.XmlDocument": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard1.3/Newtonsoft.Json.dll": {
-            "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.2.20802"
-          }
         }
       },
       "protobuf-net/2.4.4": {
         "dependencies": {
           "System.ServiceModel.Primitives": "4.5.3"
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/protobuf-net.dll": {
-            "assemblyVersion": "2.4.0.0",
-            "fileVersion": "2.4.4.9"
-          }
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
@@ -709,20 +647,6 @@
           "Microsoft.NETCore.Platforms": "2.1.0",
           "System.Reflection.DispatchProxy": "4.5.0",
           "System.Security.Principal.Windows": "4.5.0"
-        },
-        "runtimeTargets": {
-          "runtimes/unix/lib/netstandard2.0/System.Private.ServiceModel.dll": {
-            "rid": "unix",
-            "assetType": "runtime",
-            "assemblyVersion": "4.5.0.3",
-            "fileVersion": "4.6.26720.1"
-          },
-          "runtimes/win/lib/netstandard2.0/System.Private.ServiceModel.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "4.5.0.3",
-            "fileVersion": "4.6.26720.1"
-          }
         }
       },
       "System.Reflection/4.3.0": {
@@ -1012,16 +936,6 @@
       "System.ServiceModel.Primitives/4.5.3": {
         "dependencies": {
           "System.Private.ServiceModel": "4.5.3"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.ServiceModel.Primitives.dll": {
-            "assemblyVersion": "4.5.0.3",
-            "fileVersion": "4.6.26720.1"
-          },
-          "lib/netstandard2.0/System.ServiceModel.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.26720.1"
-          }
         }
       },
       "System.Text.Encoding/4.3.0": {

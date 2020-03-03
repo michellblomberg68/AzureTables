@@ -9,66 +9,56 @@ using System.Threading.Tasks;
 
 namespace AzureTableStorage
 {
-    class MultipleValuePerRow
+    class InsertTest
     {
-        string connstr = "DefaultEndpointsProtocol=https;AccountName=mbittest;AccountKey=o/1YPBuJGpNUb2HmdK0h5ccnzKsvd/UZfXaHku9Nm2NKuixpaPF5H/78Lxo646DWFpP+72n2+IH1X9KyqCkDrQ==;EndpointSuffix=core.windows.net";
-        CloudStorageAccount storageAccount;
-        CloudTableClient cloudTableClient;
-
 
 
 
         List<List<Point>> genBatches = new List<List<Point>>();
         
-        public MultipleValuePerRow()
+        public InsertTest(CloudTableClient cloudTableClient, long startTick)
         {
             // Open storage account
-            storageAccount = CloudStorageAccount.Parse(connstr);
-            cloudTableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
-
-
             generateTestData();
+        }
 
+        private void prepareHistory()
+        {
+            // Generate Nano blocks
+
+                // Push to a queue for each pointID
+
+                // When 1 min is stored
+
+                
 
 
 
 
         }
-
         private void generateTestData()
         {
+            int nrOfDays = 10;
             int nrOfSampSec = 1;
             int scanrateMs = 1000;
 
-            // Check if the test tabels exist:
-            if (!tabelsExist())
+            // Start of prep period, 
+            var startDateUtc = new DateTime(2020, 03, 01, 0, 0, 0, DateTimeKind.Utc);
+            var startUnixDateTimeMs = new DateTimeOffset(startDateUtc).ToUnixTimeMilliseconds();
+            var endDateUtc = startDateUtc.AddDays(nrOfDays);
+            var endUnixDateTimeMs = new DateTimeOffset(endDateUtc).ToUnixTimeMilliseconds();
+
+            var countMs = startUnixDateTimeMs;
+            while (countMs < endUnixDateTimeMs)
             {
-                // Start of prep period, 
-                var startDateUtc = new DateTime(2020, 02, 28, 0, 0, 0, DateTimeKind.Utc);
-                var startUnixDateTimeMs = new DateTimeOffset(startDateUtc).ToUnixTimeMilliseconds();
-                var endDateUtc = new DateTime(2020, 03, 03, 0, 0, 0, DateTimeKind.Utc);
-                var endUnixDateTimeMs = new DateTimeOffset(endDateUtc).ToUnixTimeMilliseconds();
-
-                var countMs = startUnixDateTimeMs;
-                while (countMs < endUnixDateTimeMs)
-                {
-                    // One block from Nano
-                    var block = generateBlock(nrOfSampSec,countMs, , scanrateMs);
-                    countMs += scanrateMs;
-
-
-
-
-
-
-
-
-                }
-
+                // One block from Nano
+                var block = generateBlockNanoPushBlock(nrOfSampSec);
+                countMs += scanrateMs;
             }
+            
         }
 
-        private async Task<List<Point>> generateBlock(int nrOfSampSec,long blockStartMs)
+        private async Task<List<Point>> generateBlockNanoPushBlock(int nrOfPoints,long timeAndValue)
         {
             var block = new List<Point>();
             Point point;
@@ -94,7 +84,6 @@ namespace AzureTableStorage
 
             return block;
         }
-
         private async Task<List<List<Point>>> simNanoPackagesFromIOTAPI(int days)
         {
 

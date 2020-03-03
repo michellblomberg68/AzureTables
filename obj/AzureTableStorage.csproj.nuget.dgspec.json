@@ -1,33 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\blomb\\mbitdev\\rnd\\Azure\\AzureTables\\AzureTableStorage.csproj": {}
+    "C:\\GIT\\ATable\\AzureTables\\AzureTableStorage.csproj": {}
   },
   "projects": {
-    "C:\\Users\\blomb\\mbitdev\\rnd\\Azure\\AzureTables\\AzureTableStorage.csproj": {
+    "C:\\GIT\\ATable\\AzureTables\\AzureTableStorage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\blomb\\mbitdev\\rnd\\Azure\\AzureTables\\AzureTableStorage.csproj",
+        "projectUniqueName": "C:\\GIT\\ATable\\AzureTables\\AzureTableStorage.csproj",
         "projectName": "AzureTableStorage",
-        "projectPath": "C:\\Users\\blomb\\mbitdev\\rnd\\Azure\\AzureTables\\AzureTableStorage.csproj",
-        "packagesPath": "C:\\Users\\blomb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\blomb\\mbitdev\\rnd\\Azure\\AzureTables\\obj\\",
+        "projectPath": "C:\\GIT\\ATable\\AzureTables\\AzureTableStorage.csproj",
+        "packagesPath": "C:\\Users\\dfc0722\\.nuget\\packages\\",
+        "outputPath": "C:\\GIT\\ATable\\AzureTables\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\blomb\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\dfc0722\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -51,6 +50,10 @@
               "target": "Package",
               "version": "[1.0.6, )"
             },
+            "WindowsAzure.Storage": {
+              "target": "Package",
+              "version": "[9.3.3, )"
+            },
             "protobuf-net": {
               "target": "Package",
               "version": "[2.4.4, )"
@@ -71,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

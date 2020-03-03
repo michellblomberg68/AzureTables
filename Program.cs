@@ -14,13 +14,31 @@ namespace AzureTableStorage
             Console.WriteLine("Azure TableStorage Test");
 
             // TEST: Run 
-            MultipleValuePerRow multipleValuePerRow = new MultipleValuePerRow();
+            string connstr = "DefaultEndpointsProtocol=https;AccountName=mbittest;AccountKey=o/1YPBuJGpNUb2HmdK0h5ccnzKsvd/UZfXaHku9Nm2NKuixpaPF5H/78Lxo646DWFpP+72n2+IH1X9KyqCkDrQ==;EndpointSuffix=core.windows.net";
+            CloudStorageAccount storageAccount;
+            CloudTableClient cloudTableClient;
+
+            storageAccount = CloudStorageAccount.Parse(connstr);
+            cloudTableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
+
+            // Run insertion test with preparation
+            var startDateUtc = DateTime.UtcNow.AddDays(-10); 
+            var startUnixDateTimeMs = new DateTimeOffset(startDateUtc).ToUnixTimeMilliseconds();
+            InsertTest insertTest = new InsertTest(cloudTableClient, startUnixDateTimeMs);
 
 
-            Console.WriteLine("Select i: insert, q: query");
+
+
+
+
+
+
+
+
+
+            Console.WriteLine("Select I: insert, Q: query");
             var k = Console.ReadKey();
-
-
+            
 
             if (k.KeyChar == 'i')
             {

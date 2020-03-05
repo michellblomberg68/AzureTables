@@ -13,7 +13,6 @@ namespace AzureTableStorage
 
             Console.WriteLine("Azure TableStorage Test");
 
-            // TEST: Run 
             string connstr = "DefaultEndpointsProtocol=https;AccountName=mbittest;AccountKey=o/1YPBuJGpNUb2HmdK0h5ccnzKsvd/UZfXaHku9Nm2NKuixpaPF5H/78Lxo646DWFpP+72n2+IH1X9KyqCkDrQ==;EndpointSuffix=core.windows.net";
             CloudStorageAccount storageAccount;
             CloudTableClient cloudTableClient;
@@ -21,10 +20,6 @@ namespace AzureTableStorage
             storageAccount = CloudStorageAccount.Parse(connstr);
             cloudTableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
 
-            // Run insertion test with preparation
-            var startDateUtc = DateTime.UtcNow.AddDays(-10); 
-            var startUnixDateTimeMs = new DateTimeOffset(startDateUtc).ToUnixTimeMilliseconds();
-            InsertTest insertTest = new InsertTest(cloudTableClient, startUnixDateTimeMs);
 
 
 
@@ -36,158 +31,26 @@ namespace AzureTableStorage
 
 
 
-            Console.WriteLine("Select I: insert, Q: query");
+
+            Console.WriteLine("Select P: prepHistoryData, Q: testQuery");
             var k = Console.ReadKey();
-            
 
-            if (k.KeyChar == 'i')
+
+            if (k.KeyChar == 'p')
             {
-                //MultipleValuePerRow multipleValuePerRow = new MultipleValuePerRow();
+                Console.Clear();
+                Console.WriteLine("prepHistoryData");
 
-
-                //Console.WriteLine("Insert as fast as possible 1 samp / row Partion = pointID");
-                //var tableName = "PointData";
-
-                //CloudTable cloudTable = cloudTableClient.GetTableReference(tableName);
-                //if (!cloudTable.Exists())
-                //    await cloudTable.CreateAsync();
-
-                //while (true)
-                //{
-                //    // Prepare 100000
-                //    List<AzurePoint> entities = new List<AzurePoint>();
-                //    long startIme = DateTime.UtcNow.Ticks;
-                //    for (int c = 0; c < 100000; c++)
-                //    {
-                //        entities.Add(new AzurePoint(12345, startIme) { Type = 1, State = 2, ValueStr = startIme.ToString() });
-                //        startIme++;
-                //    }
-
-                //    // R
-                //    List<List<AzurePoint>> workItems = new List<List<AzurePoint>>();
-
-                //    List<Task> runners = new List<Task>();
-                //    long timer = DateTime.UtcNow.Ticks;
-                //    int nrOfBatch = 100;
-                //    int nextPos = 0;
-                //    int nrOfItemsInBatch = 100;
-
-                //    // Prepare one list per batch 
-                //    for (int x = 0; x < nrOfBatch; x++)
-                //    {
-                //        // Get next 100 samps from entities
-                //        List<AzurePoint> slice = new List<AzurePoint>();
-
-                //        if ((nextPos + 100) > entities.Count)
-                //            nrOfItemsInBatch = entities.Count - ((nextPos + 100));
-
-                //        slice.AddRange(entities.GetRange(nextPos, nrOfItemsInBatch));
-                //        workItems.Add(slice);
-                //        nextPos += 100;
-                //    }
-
-                //    for (int x = 0; x < nrOfBatch; x++)
-                //    {
-                //        // Get next 100 samps from entities
-
-                //        runners.Add(InsertBatchEntiy(cloudTable, workItems[x]));
-                //        //Console.WriteLine("Batch inserted");
-                //        nextPos += 100;
-                //    }
-
-                //    await Task.WhenAll(runners);
-
-
-                //    Console.WriteLine((nrOfBatch * 100) + " Inserts in " + ((DateTime.UtcNow.Ticks - timer) / TimeSpan.TicksPerMillisecond + "ms" + "Avg " + ((DateTime.UtcNow.Ticks - timer) / TimeSpan.TicksPerMillisecond / (nrOfBatch * 100)) + "ms / Insert"));
-
-                //    // Run create table
-
-                //    // Run insert simulate x customers with x samps/sec of double values
-                //}
+                new InsertHistory(cloudTableClient);
             }
-            else
+            else if (k.KeyChar == 'q')
             {
-                //Console.WriteLine("Read 1000 ");
-
-                //CloudTable cloudTable = cloudTableClient.GetTableReference(tableName);
-                //if (!cloudTable.Exists())
-                //    await cloudTable.CreateAsync();
-
-                //while (true)
-                //{
-                //    // Prepare 100000
-                //    List<AzurePoint> entities = new List<AzurePoint>();
-                //    long startIme = DateTime.UtcNow.Ticks;
-                //    for (int c = 0; c < 100000; c++)
-                //    {
-                //        entities.Add(new AzurePoint(12345, startIme) { Type = 1, State = 2, ValueStr = startIme.ToString() });
-                //        startIme++;
-                //    }
-
-                //    // R
-                //    List<List<AzurePoint>> workItems = new List<List<AzurePoint>>();
-
-                //    List<Task> runners = new List<Task>();
-                //    long timer = DateTime.UtcNow.Ticks;
-                //    int nrOfBatch = 100;
-                //    int nextPos = 0;
-                //    int nrOfItemsInBatch = 100;
-
-                //    // Prepare one list per batch 
-                //    for (int x = 0; x < nrOfBatch; x++)
-                //    {
-                //        // Get next 100 samps from entities
-                //        List<AzurePoint> slice = new List<AzurePoint>();
-
-                //        if ((nextPos + 100) > entities.Count)
-                //            nrOfItemsInBatch = entities.Count - ((nextPos + 100));
-
-                //        slice.AddRange(entities.GetRange(nextPos, nrOfItemsInBatch));
-                //        workItems.Add(slice);
-                //        nextPos += 100;
-                //    }
-
-                //    for (int x = 0; x < nrOfBatch; x++)
-                //    {
-                //        // Get next 100 samps from entities
-
-                //        runners.Add(InsertBatchEntiy(cloudTable, workItems[x]));
-                //        //Console.WriteLine("Batch inserted");
-                //        nextPos += 100;
-                //    }
-
-                //    await Task.WhenAll(runners);
-
-
-                //    Console.WriteLine((nrOfBatch * 100) + " Inserts in " + ((DateTime.UtcNow.Ticks - timer) / TimeSpan.TicksPerMillisecond + "ms" + "Avg " + ((DateTime.UtcNow.Ticks - timer) / TimeSpan.TicksPerMillisecond / (nrOfBatch * 100)) + "ms / Insert"));
-
-
-
-                }
-            Console.WriteLine("Exit with enter");
-            Console.ReadKey();
-
-        }
-
-        static async Task<TableBatchResult> InsertBatchEntiy(CloudTable table, List<TableEntity> batchItems)
-        {
-            TableBatchOperation batch = new TableBatchOperation();
-
-            for(int c = 0; c < batchItems.Count;c++ )
-            {
-                batch.Insert(batchItems[c]); 
+                Console.Clear();
+                Console.WriteLine("testQuery");
             }
-            return await table.ExecuteBatchAsync(batch);
         }
 
-        static async Task InsertEntity(CloudTable table, TableEntity entity)
-        {
-            TableOperation tableOperation = TableOperation.Insert(entity);
 
-            TableResult res = await table.ExecuteAsync(tableOperation);
-            AzurePoint insertedPoiint = res.Result as AzurePoint; 
-            
-        }
     }
 
 

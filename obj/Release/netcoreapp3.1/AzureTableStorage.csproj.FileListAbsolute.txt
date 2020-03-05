@@ -61,3 +61,4 @@ C:\Users\blomb\mbitdev\rnd\Azure\AzureTables\obj\Release\netcoreapp3.1\AzureTabl
 C:\Users\blomb\mbitdev\rnd\Azure\AzureTables\obj\Release\netcoreapp3.1\AzureTableStorage.csproj.CopyComplete
 C:\Users\blomb\mbitdev\rnd\Azure\AzureTables\obj\Release\netcoreapp3.1\AzureTableStorage.dll
 C:\Users\blomb\mbitdev\rnd\Azure\AzureTables\obj\Release\netcoreapp3.1\AzureTableStorage.pdb
+C:\Users\blomb\mbitdev\rnd\Azure\AzureTables\bin\Release\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll

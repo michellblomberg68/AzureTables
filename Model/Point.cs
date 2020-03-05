@@ -13,6 +13,5 @@ namespace AzureTableStorage.Model
         public byte State { get; set; }
         public long TimeStampUnixUTC { get; set; }
         public byte[] Value { get; set; }
-        //public string Value { get; set; }
     }
 }
